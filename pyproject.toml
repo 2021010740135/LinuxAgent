@@ -1,0 +1,26 @@
+[project]
+name = "lc-course"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "langchain>=1.2.15",
+    "langchain-anthropic>=1.4.0",
+    "langchain-deepseek>=1.0.1",
+    "langchain-openai>=1.1.14",
+    "mcp>=1.19.0",
+    "notebook>=7.5.5",
+    "openai>=2.32.0",
+    "paramiko>=3.5.1",
+    "pymysql>=1.1.1",
+    "python-dotenv>=1.2.2",
+    "pyyaml>=6.0.2",
+    "streamlit>=1.45.1",
+    "tool>=0.8.0",
+]
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+
+[[tool.uv.index]]
+url = "https://mirrors.aliyun.com/pypi/simple/"
