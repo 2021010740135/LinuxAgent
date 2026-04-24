@@ -1,0 +1,66 @@
+blocked_command_patterns:
+  - "(^|\\s)rm\\s+-rf\\s+/"
+  - "(^|\\s)mkfs(\\.|\\s)"
+  - "(^|\\s)dd\\s+if="
+  - "(^|\\s)shutdown(\\s|$)"
+  - "(^|\\s)reboot(\\s|$)"
+  - "(^|\\s)poweroff(\\s|$)"
+
+protected_users:
+  - root
+  - admin
+  - ubuntu
+  - nobody
+  - system
+
+blocked_search_roots:
+  - /proc
+  - /sys
+  - /dev
+  - /run
+
+sensitive_write_roots:
+  - /etc
+  - /boot
+  - /bin
+  - /sbin
+  - /usr/bin
+  - /var/log
+
+write_like_actions:
+  - create_folder
+  - create_file
+  - append_file
+  - rename_file
+  - delete_file
+  - update_file
+  - write_file
+  - chmod_path
+  - chown_path
+  - update_config
+
+dangerous_intent_rules:
+  - pattern: "(rm\\s+-rf|删除所有|删光|清空所有|清除所有|格式化磁盘|抹掉系统)"
+    disposition: block
+    risk_level: critical
+    category: destructive_intent
+    reason: 检测到大范围破坏性操作意图。
+    explanation: 该请求表现出清空系统、批量删除或格式化等高危倾向，系统不会继续生成工具调用。
+  - pattern: "(提权|绕过安全|关闭安全策略|清空日志|植入后门|爆破|弱口令攻击)"
+    disposition: block
+    risk_level: critical
+    category: illegal_security_bypass
+    reason: 检测到绕过安全或攻击性意图。
+    explanation: 系统管理代理不能被用于提权、后门植入、清痕或攻击行为，因此已直接拒绝。
+  - pattern: "(删除.*(/etc|/boot|/bin|/var/log)|清空.*(/etc|/boot|/bin|/var/log))"
+    disposition: block
+    risk_level: critical
+    category: core_path_destruction
+    reason: 检测到对系统核心目录的删除或清空意图。
+    explanation: /etc、/boot、/bin、/var/log 等目录属于系统关键资产，相关破坏性请求已被直接拦截。
+  - pattern: "(删除所有用户|批量删用户|给所有用户加权限|给全部用户sudo|批量修改权限)"
+    disposition: block
+    risk_level: critical
+    category: bulk_privilege_change
+    reason: 检测到大范围用户权限变更意图。
+    explanation: 大范围账户删除或权限扩散会显著提升系统风险，系统要求用户改为最小范围、明确对象的操作。
