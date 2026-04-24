@@ -1,0 +1,79 @@
+check_remote_connection:
+  risk: low
+  category: environment_observation
+  requires_confirmation: false
+
+get_system_context:
+  risk: low
+  category: environment_observation
+  requires_confirmation: false
+
+get_disk_usage:
+  risk: low
+  category: environment_observation
+  requires_confirmation: false
+
+search_file:
+  risk: medium
+  category: bounded_read_query
+  requires_confirmation: false
+
+get_process_list:
+  risk: low
+  category: runtime_observation
+  requires_confirmation: false
+
+get_port_status:
+  risk: low
+  category: runtime_observation
+  requires_confirmation: false
+
+create_user:
+  risk: high
+  category: user_privilege_change
+  requires_confirmation: true
+
+delete_user:
+  risk: high
+  category: user_privilege_change
+  requires_confirmation: true
+
+create_folder:
+  risk: medium
+  category: filesystem_write
+  requires_confirmation: false
+
+create_file:
+  risk: medium
+  category: filesystem_write
+  requires_confirmation: false
+
+read_file:
+  risk: low
+  category: bounded_read_query
+  requires_confirmation: false
+
+append_file:
+  risk: medium
+  category: filesystem_write
+  requires_confirmation: false
+
+rename_file:
+  risk: medium
+  category: filesystem_write
+  requires_confirmation: false
+
+delete_file:
+  risk: high
+  category: filesystem_delete
+  requires_confirmation: true
+
+confirm_action:
+  risk: medium
+  category: authorization_resolution
+  requires_confirmation: false
+
+cancel_action:
+  risk: low
+  category: authorization_resolution
+  requires_confirmation: false
